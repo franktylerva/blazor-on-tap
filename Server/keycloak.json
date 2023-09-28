@@ -1,0 +1,14 @@
+{
+  "realm": "test",
+  "auth-server-url": "http://localhost:8080/",
+  "ssl-required": "none",
+  "resource": "test-client",
+  "verify-token-audience": true,
+  "credentials": {
+    "secret": "c9euCshwbnfyQKjQdGwxDP0irtXLJsA4"
+  },
+  "confidential-port": 0,
+  "policy-enforcer": {
+    "credentials": {}
+  }
+}
