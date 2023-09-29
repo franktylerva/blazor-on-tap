@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WasmHosted.Shared;
@@ -24,7 +25,10 @@ public class WeatherForecastController : ControllerBase
     [HttpGet]
     public IEnumerable<WeatherForecast> Get()
     {
-        _logger.LogInformation("User requesting weather is: " + User.Identity?.Name);
+        string first = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName).Value;
+        string last = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Surname).Value;
+        
+        _logger.LogInformation("User requesting weather is: " + first + " " + last);
         
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
