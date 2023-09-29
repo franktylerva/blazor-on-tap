@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.ResponseCompression;
 using Keycloak.AuthServices.Authentication;
 using Microsoft.OpenApi.Models;
 
@@ -10,7 +9,17 @@ host.ConfigureKeycloakConfigurationSource("keycloak.json");
 
 // Add services to the container.
 var services = builder.Services;
-services.AddKeycloakAuthentication(configuration);
+
+services.AddAuthentication().AddJwtBearer(o =>
+{
+    o.MetadataAddress = "http://localhost:8080/realms/test/.well-known/openid-configuration";
+    o.Authority = "http://localhost:8080/";
+    o.Audience = "test-client";
+    o.RequireHttpsMetadata = false;
+});
+
+
+// services.AddKeycloakAuthentication(configuration);
 services.AddAuthorization();
 
 services.AddControllersWithViews();
