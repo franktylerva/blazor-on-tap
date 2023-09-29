@@ -11,9 +11,9 @@ RegisterHttpClient(builder);
 
 builder.Services.AddOidcAuthentication(options =>
 {
-    options.ProviderOptions.MetadataUrl = "http://localhost:8080/realms/test/.well-known/openid-configuration";
-    options.ProviderOptions.Authority = "http://localhost:8080/realms/test";
-    options.ProviderOptions.ClientId = "test-client";
+    options.ProviderOptions.MetadataUrl = "http://unsafe-test-login.appsso.tapv-stirred-caribou.tapsandbox.com/.well-known/openid-configuration";
+    options.ProviderOptions.Authority = "http://unsafe-test-login.appsso.tapv-stirred-caribou.tapsandbox.com";
+    options.ProviderOptions.ClientId = "apps_blazor-on-tap-sso-pw84x-m5xr2";
     options.ProviderOptions.ResponseType = "id_token token";
 
     options.UserOptions.NameClaim = "preferred_username";

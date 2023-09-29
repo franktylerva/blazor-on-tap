@@ -1,4 +1,5 @@
 using Keycloak.AuthServices.Authentication;
+using WasmHosted.Shared;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,9 +13,12 @@ var services = builder.Services;
 
 services.AddAuthentication().AddJwtBearer(o =>
 {
-    o.MetadataAddress = "http://localhost:8080/realms/test/.well-known/openid-configuration";
-    o.Authority = "http://localhost:8080/";
-    o.Audience = "test-client";
+    DotnetServiceBinding sc = new DotnetServiceBinding();
+    Dictionary<string, string> oauth2Bindings = sc.GetBindings("oauth2");
+    
+    o.MetadataAddress = oauth2Bindings["issuer-uri"] + "/.well-known/openid-configuration";
+    o.Authority = oauth2Bindings["issuer-uri"];
+    o.Audience = oauth2Bindings["client-id"];;
     o.RequireHttpsMetadata = false;
 });
 
